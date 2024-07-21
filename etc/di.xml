@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <virtualType name="PFLogger" type="Magento\Framework\Logger\Monolog">
+        <arguments>
+            <argument name="handlers"  xsi:type="array">
+                <item name="debug" xsi:type="object">PF\Core\Logger\Handler\Debug</item>
+                <item name="error" xsi:type="object">PF\Core\Logger\Handler\Error</item>
+            </argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="PFLoggerContext" type="Magento\Framework\App\Helper\Context">
+        <arguments>
+            <argument name="logger" xsi:type="object">PFLogger</argument>
+        </arguments>
+    </virtualType>
+    <type name="PF\Core\Helper\CoreHelper">
+        <arguments>
+            <argument name="context" xsi:type="object">PFLoggerContext</argument>
+        </arguments>
+    </type>
+</config>
